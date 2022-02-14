@@ -1,8 +1,7 @@
-const $ = new Env('引力域');
+const $ = new Env('柠檬引力域');
 var request = require("request");
 var crypto = require("crypto");
 var rrsa = require("./yinliyu");
-
 let status;
 status = (status = ($.getval("ylystatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
 let ylyhdArr = [],ylycount = ''
@@ -18,7 +17,6 @@ const host='https://api.uni.changan.com.cn/'
 var hours = new Date().getHours();
 var s = new Date().getMinutes();
 var timestamp = Math.round(new Date().getTime()).toString();
-var timestamp1 = Math.round(new Date().getTime()/1000).toString();
 !(async () => {
   if (typeof $request !== "undefined") {
         await ylyck()
@@ -61,7 +59,7 @@ var timestamp1 = Math.round(new Date().getTime()/1000).toString();
           
           allMessage += `\n====开始【引力域${$.index}】====\n`
 console.log(`【--签到--】`)
-//allMessage += `【--签到--】`
+allMessage += `【--签到--】`
          await sign()
 	            
 	            
@@ -89,59 +87,13 @@ if(ylyhd)    $.setdata(ylyhd,`ylyhd${status}`)
 
 
 $.log(ylyhd)
-
+//ylyhd = ylyhd.match(/loginToken=(.*?)&/)[1] 
+//$.log(ylyhd)
    $.msg($.name,"",'引力域'+`${status}` +'数据获取成功！')
  
 }
 }
-async function star(){
-    
-                 
-console.log(`\n【--评论--】`)
-//allMessage +=`\n【--评论--】`
-await addComment(447)
-await addComment(420)
-await addComment(418)
-await addComment(311)
-await addComment(312)
-await addComment(776)
-await addComment(967)
-await addComment(906)
-await addComment(633)
-await addComment(141)
-await addComment(499)
-await addComment(698)
 
-console.log(`\n【--点赞--】`)
-//allMessage +=`\n【--点赞--】`
-for(let i=1;i<15;i++){
-//await actionLike(504)
-await actionLike(randomRangeNumber(111,999))
-}
-console.log(`\n【--分享--】`)
-//allMessage +=`\n【--分享--】`
-for(let i=1;i<15;i++){
-//await actionLike(504)
-await callback(randomRangeNumber(111,999))
-}
-console.log(`\n【--浏览--】`)
-//allMessage +=`\n【--浏览--】`
-
-await details()
-console.log(`\n【--发布--】`)
-//allMessage +=`\n【--发布--】`
-
-await addPosts(`{"actionCode":"community_post","content":"changannihao","imgUrl":["temp/2022/01/08/1641649513025androidios224_224.jpg"],"isPublish":2,"pics":"temp/2022/01/08/1641649513025androidios224_224.jpg","plate":2,"title":"nihaochangan","type":2}`)
-await addPosts(`{"actionCode":"community_post","content":"changannihao","imgUrl":["temp/2022/01/08/1641649513025androidios224_224.jpg"],"isPublish":2,"pics":"temp/2022/01/08/1641649513025androidios224_224.jpg","plate":2,"title":"nihaochangan","type":2}`)
-await addPosts(`{"actionCode":"community_post","content":"changannihao","imgUrl":["temp/2022/01/08/1641649513025androidios224_224.jpg"],"isPublish":2,"pics":"temp/2022/01/08/1641649513025androidios224_224.jpg","plate":2,"title":"nihaochangan","type":2}`)
-console.log(`\n【--删除--】`)
-//allMessage +=`\n【--删除--】`
-await myPostsList()	            
-console.log(`\n【--查询--】`)
-//allMessage +=`\n【--查询--】`
-await getAllTasks()	
-    
-}
 async function sign() {
  return new Promise((resolve) => {
  body1 = '{}',
@@ -150,10 +102,10 @@ async function sign() {
  body = `{"paramEncr":"${singjiami(body1,aeskey,aeskey)}"}`,
 Sec=rrsa.nihao(aeskey)
 
-
+ //let sms ='DIG',login='POM',signin='ARK',tasktype='HXK',info='ARK';
 $.post(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
@@ -171,15 +123,101 @@ $.post(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),
              console.log('\n'+infodata.actionName+'积分：'+infodata.integral)
              allMessage += `\n${infodata.actionName}+'积分：'+${infodata.integral}\n`
              
-             await star()
+console.log(`\n【--评论--】`)
+allMessage +=`\n【--评论--】`
+await addComment(447)
+await addComment(420)
+await addComment(418)
+await addComment(311)
+await addComment(312)
+await addComment(776)
+await addComment(967)
+await addComment(906)
+await addComment(633)
+await addComment(141)
+await addComment(499)
+await addComment(698)
+
+console.log(`\n【--点赞--】`)
+allMessage +=`\n【--点赞--】`
+for(let i=1;i<15;i++){
+//await actionLike(504)
+await actionLike(randomRangeNumber(111,999))
+}
+console.log(`\n【--分享--】`)
+allMessage +=`\n【--分享--】`
+for(let i=1;i<15;i++){
+//await actionLike(504)
+await callback(randomRangeNumber(111,999))
+}
+console.log(`\n【--浏览--】`)
+allMessage +=`\n【--浏览--】`
+
+await details()
+console.log(`\n【--发布--】`)
+allMessage +=`\n【--发布--】`
+
+await addPosts(`{"actionCode":"community_post","content":"changannihao","imgUrl":["temp/2022/01/08/1641649513025androidios224_224.jpg"],"isPublish":2,"pics":"temp/2022/01/08/1641649513025androidios224_224.jpg","plate":2,"title":"nihaochangan","type":2}`)
+await addPosts(`{"actionCode":"community_post","content":"changannihao","imgUrl":["temp/2022/01/08/1641649513025androidios224_224.jpg"],"isPublish":2,"pics":"temp/2022/01/08/1641649513025androidios224_224.jpg","plate":2,"title":"nihaochangan","type":2}`)
+await addPosts(`{"actionCode":"community_post","content":"changannihao","imgUrl":["temp/2022/01/08/1641649513025androidios224_224.jpg"],"isPublish":2,"pics":"temp/2022/01/08/1641649513025androidios224_224.jpg","plate":2,"title":"nihaochangan","type":2}`)
+console.log(`\n【--删除--】`)
+allMessage +=`\n【--删除--】`
+await myPostsList()	            
+console.log(`\n【--查询--】`)
+allMessage +=`\n【--查询--】`
+await getAllTasks()	
              }
             
              else if(data.code == 500){
             
              console.log(`\n叼毛 今天已经签到过了`)   
-             //allMessage += `\n叼毛 今天已经签到过了`
-             await star()
+             allMessage += `\n叼毛 今天已经签到过了`
              
+console.log(`\n【--评论--】`)
+allMessage +=`\n【--评论--】`
+await addComment(447)
+await addComment(420)
+await addComment(418)
+await addComment(311)
+await addComment(312)
+await addComment(776)
+await addComment(967)
+await addComment(906)
+await addComment(633)
+await addComment(141)
+await addComment(499)
+await addComment(698)
+
+console.log(`\n【--点赞--】`)
+allMessage +=`\n【--点赞--】`
+for(let i=1;i<15;i++){
+//await actionLike(504)
+await actionLike(randomRangeNumber(111,999))
+}
+console.log(`\n【--分享--】`)
+allMessage +=`\n【--分享--】`
+for(let i=1;i<15;i++){
+//await actionLike(504)
+await callback(randomRangeNumber(111,999))
+}
+console.log(`\n【--浏览--】`)
+allMessage +=`\n【--浏览--】`
+
+await details()
+console.log(`\n【--发布--】`)
+allMessage +=`\n【--发布--】`
+
+await addPosts()
+await addPosts()
+await addPosts()
+await addPosts()
+await addPosts()
+console.log(`\n【--删除--】`)
+allMessage +=`\n【--删除--】`
+await myPostsList()	            
+console.log(`\n【--查询--】`)
+allMessage +=`\n【--查询--】`
+await getAllTasks()	
              }
              else 
              if(data.code === 401){
@@ -207,10 +245,10 @@ async function addComment(bizId) {
  body = `{"paramEncr":"${singjiami(body1,aeskey,aeskey)}"}`,
 Sec=rrsa.nihao(aeskey)
 
-
+ //let sms ='DIG',login='POM',signin='ARK',tasktype='HXK',info='ARK';
 $.post(yly('con/article/addComment',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
@@ -226,16 +264,16 @@ $.post(yly('con/article/addComment',body,md5(body+timestamp+'hyzh-unistar-5KWJKH
              
              infodata = JSON.parse(infodata)
              console.log(`\n${data.msg}`)
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
             
              else if(data.code == 500){
             
              console.log(`\n${data.msg}`)   
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
              else if(data.code == 401){
-            //allMessage += `\n${data.msg}`
+            allMessage += `\n${data.msg}`
              console.log(`\n${data.msg}`)    
              }
           }
@@ -257,10 +295,10 @@ async function actionLike(artId) {
  body = `{"paramEncr":"${singjiami(body1,aeskey,aeskey)}"}`,
 Sec=rrsa.nihao(aeskey)
 
-
+ //let sms ='DIG',login='POM',signin='ARK',tasktype='HXK',info='ARK';
 $.post(yly('con/article/actionLike',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
@@ -276,16 +314,16 @@ $.post(yly('con/article/actionLike',body,md5(body+timestamp+'hyzh-unistar-5KWJKH
              
              infodata = JSON.parse(infodata)
              console.log(`\n${data.msg}`)
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
             
              else if(data.code == 500){
             
              console.log(`\n${data.msg}`)   
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
              else if(data.code == 401){
-            //allMessage += `\n${data.msg}`
+            allMessage += `\n${data.msg}`
              console.log(`\n${data.msg}`)    
              }
           }
@@ -299,18 +337,18 @@ $.post(yly('con/article/actionLike',body,md5(body+timestamp+'hyzh-unistar-5KWJKH
     })
   })
 }
-async function callback() {
+async function callback(bizId) {
  return new Promise((resolve) => {
- body1 ='{"bizId":"1029","content":'+JSON.stringify(`{"bizId":"1029","shareDesc":"UNI先享，未来有你丨UNI-V先享试驾体验等你解锁","shareImg":"base/2022/01/07/7f4a8ad25652401e945676267fcf996aandroidios622_311.png","shareTitle":"UNI先享，未来有你丨UNI-V先享试驾体验等你解锁","shareUrl":"https://cir.uni.changan.com.cn/quanzi/?from=singlemessage&t=1642077811#/informationDetail?artId=1029","type":"1","wxminiprogramCode":""}`)+',"device":"","shareTime":"1642078632745","shareTo":"3","type":"1","userId":"3874317"}'
+ body1 = `{"bizId":"${bizId}","content":"{"bizId":"${bizId}","shareDesc":"星推官投票通道正式启动，为喜爱的TA声援打Call！","shareImg":"uni-stars-manager/2021/11/17/bcc48d0f2ec04e4a91ab98684bfbd2c0androidios629_314.png","shareTitle":"UNI星推官投票通道开启！人气领袖，等你打Call！","shareUrl":"https://cir.uni.changan.com.cn/quanzi/?from=singlemessage&t=1637332944#/informationDetail?artId=${bizId}","type":"1","wxminiprogramCode":""}","device":"","shareTime":"1637332971761","shareTo":"3","type":"1","userId":"3293478"}`,
  aeskey = timestamp+'HXK',
 
  body = `{"paramEncr":"${singjiami(body1,aeskey,aeskey)}"}`,
 Sec=rrsa.nihao(aeskey)
 
-
+ //let sms ='DIG',login='POM',signin='ARK',tasktype='HXK',info='ARK';
 $.post(yly('con/share/callback',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
@@ -326,16 +364,16 @@ $.post(yly('con/share/callback',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291I
              
              infodata = JSON.parse(infodata)
              console.log(`\n${data.msg}`)
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
             
              else if(data.code == 500){
             
              console.log(`\n${data.msg}`)   
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
              else if(data.code == 401){
-            //allMessage += `\n${data.msg}`
+            allMessage += `\n${data.msg}`
              console.log(`\n${data.msg}`)    
              }
           }
@@ -357,10 +395,10 @@ async function details() {
  body = `{"paramEncr":"${singjiami(body1,aeskey,aeskey)}"}`,
 Sec=rrsa.nihao(aeskey)
 
-
+ //let sms ='DIG',login='POM',signin='ARK',tasktype='HXK',info='ARK';
 $.post(yly('con/article/details',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
@@ -376,16 +414,16 @@ $.post(yly('con/article/details',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291
              
              infodata = JSON.parse(infodata)
              console.log(`\n${data.msg}`)
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
             
              else if(data.code == 500){
             
              console.log(`\n${data.msg}`)   
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
              else if(data.code == 401){
-            //allMessage += `\n${data.msg}`
+            allMessage += `\n${data.msg}`
              console.log(`\n${data.msg}`)    
              }
           }
@@ -410,8 +448,8 @@ Sec=rrsa.nihao(aeskey)
 
 
 $.post(yly('con/posts/addPosts',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
@@ -427,16 +465,16 @@ $.post(yly('con/posts/addPosts',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291I
              
              infodata = JSON.parse(infodata)
              console.log(`\n${data.msg}`)
-            // allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
             
              else if(data.code == 500){
             
              console.log(`\n${data.msg}`)   
-            // allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
              else if(data.code == 401){
-            //allMessage += `\n${data.msg}`
+            allMessage += `\n${data.msg}`
              console.log(`\n${data.msg}`)    
              }
           }
@@ -458,10 +496,10 @@ async function myPostsList() {
  body = `{"paramEncr":"${singjiami(body1,aeskey,aeskey)}"}`,
 Sec=rrsa.nihao(aeskey)
 
-
+ //let sms ='DIG',login='POM',signin='ARK',tasktype='HXK',info='ARK';
 $.post(yly('con/posts/myPostsList',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
@@ -478,7 +516,7 @@ $.post(yly('con/posts/myPostsList',body,md5(body+timestamp+'hyzh-unistar-5KWJKH2
              infodata = JSON.parse(infodata)
              if(infodata.total == 0){
                 console.log(`\n文章都没有你删个几把`)
-             //allMessage += `\n文章都没有你删个几把` 
+             allMessage += `\n文章都没有你删个几把` 
              }else if(infodata.total != 0){
                  dataList = infodata.dataList
                  for(let i=0;i<dataList.length;i++){
@@ -487,16 +525,16 @@ $.post(yly('con/posts/myPostsList',body,md5(body+timestamp+'hyzh-unistar-5KWJKH2
                  }
              }
              console.log(`\n${data.msg}`)
-            // allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
             
              else if(data.code == 500){
             
              console.log(`\n${data.msg}`)   
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
              else if(data.code == 401){
-            //allMessage += `\n${data.msg}`
+            allMessage += `\n${data.msg}`
              console.log(`\n${data.msg}`)    
              }
           }
@@ -519,10 +557,10 @@ async function deletea(a) {
  body = `{"paramEncr":"${singjiami(body1,aeskey,aeskey)}"}`,
 Sec=rrsa.nihao(aeskey)
 
-
+ //let sms ='DIG',login='POM',signin='ARK',tasktype='HXK',info='ARK';
 $.post(yly('con/posts/delete',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
@@ -538,16 +576,16 @@ $.post(yly('con/posts/delete',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291Iva
              
              infodata = JSON.parse(infodata)
              console.log(`\n${data.msg}`)
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
             
              else if(data.code == 500){
             
              console.log(`\n${data.msg}`)   
-             //allMessage += `\n${data.msg}`
+             allMessage += `\n${data.msg}`
              }
              else if(data.code == 401){
-            //allMessage += `\n${data.msg}`
+            allMessage += `\n${data.msg}`
              console.log(`\n${data.msg}`)    
              }
           }
@@ -570,10 +608,10 @@ async function getAllTasks(a) {
  body = `{"paramEncr":"${singjiami(body1,aeskey,aeskey)}"}`,
 Sec=rrsa.nihao(aeskey)
 
-
+ //let sms ='DIG',login='POM',signin='ARK',tasktype='HXK',info='ARK';
 $.post(yly('userTask/getAllTasks',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp), async (err, resp, data) => {
-       
-      
+      //console.log(`${JSON.stringify(yly('user/signIn',body,md5(body+timestamp+'hyzh-unistar-5KWJKH291IvadR'),rrsa.nihao(aeskey),timestamp))}`) 
+      //console.log(data)
       
       try {
         if (err) {
