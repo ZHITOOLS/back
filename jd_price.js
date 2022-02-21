@@ -18,6 +18,7 @@ cron "41 23 * * *" script-path=https://raw.githubusercontent.com/Aaron-lv/sync/j
 ============小火箭=========
 京东保价 = type=cron,script-path=https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_price.js, cronexpr="41 23 * * *", timeout=3600, enable=true
  */
+// by 标哥丶 220120
 const $ = new Env('京东保价');
 const CryptoJS = require('crypto-js');
 const notify = $.isNode() ? require('./sendNotify') : '';
