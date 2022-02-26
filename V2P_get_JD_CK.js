@@ -1,9 +1,11 @@
 /*
 V2P获取京东CK(短信验证码)
 
-基于V2P的UI脚本，短信获取京东CK，不需要重写
+基于V2P的UI脚本，短信获取京东CK(并自动写入青龙)，直接运行即可
+有时会出错，应该是服务器限流，多跑几次就好
+可选变量qlParam，不填或者填错就只打印CK不写入青龙，填对了就自动写入青龙环境变量里
 
-需要变量qlParam，在V2P里面添加，格式：
+变量qlParam格式：
 host=127.0.0.1:5700&client_id=xxxxxx&client_secret=yyyyyyyyyyyyyyyyyy
 其中host是你的青龙IP和端口，client_id和client_secret需要到 青龙->系统设置->应用设置 里面添加，需要添加环境变量权限
 */
@@ -23,6 +25,7 @@ let qlHost = ''
 let qlSecret = ''
 let qlAuth = ''
 let qlEnv = []
+let qlId = ''
 
 let appid = '959'
 let client_ver = '1.0.0'
@@ -47,7 +50,7 @@ var sendSmsUI = {
   title: '发送验证码',          // 窗口标题
   width: 600,          // 窗口宽度
   height: 160,         // 窗口高度
-  content: `<p>输入手机号后，点击发送验证码</p>`,            // 图形界面显示内容
+  content: '输入手机号后，点击发送验证码',            // 图形界面显示内容
   style: {             // 设置一些基础样式
     title: "background: #6B8E23;",   // 设置标题样式
     content: "background: #FF8033; font-size: 24px; text-align: center",  // 设置中间主体内容样式
@@ -70,7 +73,7 @@ var getCkUI = {
   title: '提交验证码获取CK',          // 窗口标题
   width: 600,          // 窗口宽度
   height: 160,         // 窗口高度
-  content: `<p>输入收到的验证码，点击提交验证码</p>`,            // 图形界面显示内容
+  content: '输入收到的验证码，点击提交验证码',            // 图形界面显示内容
   style: {             // 设置一些基础样式
     title: "background: #6B8E23;",   // 设置标题样式
     content: "background: #FF8033; font-size: 24px; text-align: center",  // 设置中间主体内容样式
@@ -94,16 +97,17 @@ var getCkUI = {
     }else {
         let qlParamJson = populateParam(qlParam);
         if(!qlParamJson.host || !qlParamJson.client_id || !qlParamJson.client_secret) {
-            console.log('qlParam格式错误，请检查')
-            return;
+            console.log('qlParam格式错误，本次获取CK后不会写入到青龙')
+        } else {
+            qlHost = qlParamJson.host
+            qlSecret = 'client_id=' + qlParamJson.client_id + '&client_secret=' + qlParamJson.client_secret
+            await getToken()
+            if(qlAuth) {
+                await searchEnv('JD_COOKIE');
+            }
         }
-        qlHost = qlParamJson.host
-        qlSecret = 'client_id=' + qlParamJson.client_id + '&client_secret=' + qlParamJson.client_secret
-        await getToken()
-        if(!qlAuth) return;
-        await searchEnv('JD_COOKIE');
         
-        await $evui(sendSmsUI, async (data) => {
+        $evui(sendSmsUI, async (data) => {
             if(data.search(/^1[0-9]{10}$/) > -1) {
                 mobile = data
                 $evui(getCkUI, async (data) => {
@@ -189,20 +193,30 @@ async function verifyCode(smscode) {
         jdck = `pt_pin=${pt_pin}; pt_key=${result.data.pt_key};`
         console.log(`京东登录成功，您的京东CK：`)
         console.log(jdck)
-        let isFound = false
-        for(let item of qlEnv) {
-            if(item.value.indexOf(pt_pin) > -1) {
-                await $.wait(10)
-                await updateEnv('JD_COOKIE',jdck,`V2P_sync@${(new Date()).getTime()}`,item._id);
-                await $.wait(10)
-                await enableEnv(item._id,'JD_COOKIE');
-                isFound = true;
-                break;
+        if(qlAuth) {
+            let nowtime = new Date()
+            let year = padStr(nowtime.getFullYear(),4)
+            let month = padStr(nowtime.getMonth(),2)
+            let date = padStr(nowtime.getDate(),2)
+            let hour = padStr(nowtime.getHours(),2)
+            let minute = padStr(nowtime.getMinutes(),2)
+            let remark = `V2P_get_JD_CK@${year}-${month}-${date} ${hour}:${minute}`
+            let isFound = false
+            for(let item of qlEnv) {
+                if(item.value.indexOf(pt_pin) > -1) {
+                    qlId = item._id
+                    await $.wait(10)
+                    await updateEnv('JD_COOKIE',jdck,remark,item._id);
+                    await $.wait(10)
+                    await enableEnv(item._id,'JD_COOKIE');
+                    isFound = true;
+                    break;
+                }
             }
-        }
-        if(!isFound) {
-            await $.wait(10)
-            await addEnv('JD_COOKIE',jdck,`V2P_sync@${(new Date()).getTime()}`);
+            if(!isFound) {
+                await $.wait(10)
+                await addEnv('JD_COOKIE',jdck,remark);
+            }
         }
     } else {
         console.log(`京东登录失败，请尝试重新运行：${result.err_msg}`)
@@ -262,6 +276,7 @@ async function addEnv(name,value,remarks) {
     if(!result) return
     //console.log(result)
     if(result.code == 200) {
+        qlId = result.data._id
         console.log(`添加青龙环境变量${name}成功`)
     } else {
         console.log(`添加青龙环境变量${name}失败: ${result.message}`)
