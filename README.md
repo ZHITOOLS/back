@@ -6,7 +6,7 @@ hexo
 805ae35e256010675e514d5d9f02a04d94db2f86
 
 Twitoo
-https://vercel.com/zhitools/twikoo/5A9H7aWrEGeG71TadM84JXey6pXQ
+https://twikoo-ggzhlst6x-zhitools.vercel.app
 
 https://try.eutryme.tk/api/v1/client/subscribe?token=3c23fb89ccc364f50f23577ab6eabba6
 
