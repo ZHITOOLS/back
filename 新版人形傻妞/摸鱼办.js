@@ -643,6 +643,7 @@ function addYangFestival(ff, mm, dd) {
 
 function dateApi() {
     var dateUrl = "https://tool.bitefu.net/jiari/?info=1&d=" + fishMan.format("yyyyMMdd")
+    try {
         var {body} = request({
             url: dateUrl,
             method: "get",
@@ -656,7 +657,7 @@ function dateApi() {
         msg += "\n【今日黄历】" + body['yearname'] + "年 " + body["nonglicn"] + " " + body["jieqi"]
         msg += "\n「宜」" + body["suit"]
         msg += "\n「忌」" + body["avoid"]
-    
+    } catch(e) {}
 }
 
 function headInfo() {
