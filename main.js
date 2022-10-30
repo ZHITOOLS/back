@@ -23,8 +23,10 @@ function sub() {
 
 function short() {
     var mlurl = document.getElementById("id4").value;
-    if (!!document.getElementById("target").value) {
-        mlurl = https://sub-web.loveyou.eu.org/sub?target= + target + &url=mlurl&config=myrules
+    var target = document.getElementById("mytarget").value;
+    var name = document.getElementById("myrules").value;
+    if (!!document.getElementById("myrules").value) {
+        mlurl = https://sub-web.loveyou.eu.org/sub?target= + mytarget + &url=mlurl&config=myrules
     return mlurl;
     }    
     
