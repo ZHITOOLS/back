@@ -24,9 +24,7 @@ function sub() {
 function short() {
     var mlurl = document.getElementById("id4").value;
     if (!!document.getElementById("target").value) {
-        mlurl = https://sub-web.loveyou.eu.org/sub?target= + target + &url=mlurl&config=myrules.ini
-    } //备注
-    mlurl += "&&" + port;//多端口筛选
+        mlurl = https://sub-web.loveyou.eu.org/sub?target= + target + &url=mlurl&config=myrules
     return mlurl;
     }    
     
