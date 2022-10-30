@@ -27,7 +27,6 @@ function short() {
     var myrules = document.getElementById("myrules").value;
     if (!!document.getElementById("mytarget").value) {
         mlurl = https://sub-web.loveyou.eu.org/sub?target= + mytarget + &url=mlurl&config=myrules
-    return mlurl;
     }    
     
     const repo = 'https://github.com/CareyWang/MyUrls'
