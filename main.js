@@ -9,9 +9,6 @@ function sub() {
     var host = document.getElementById("host").value;
     var name = document.getElementById("name").value;
     var port = document.getElementById("port").value;
-    var mytarget = document.getElementById("mytarget").value;
-    var myconfig = document.getElementById("myconfig").value;
-var mytarget = document.getElementById("myconfig").value;    
     if (url === "") {
         alert("必填不能为空！");
     }else{
