@@ -22,7 +22,7 @@ var mytarget = document.getElementById("myconfig").value;
     mlurl += "&&" + port;//多端口筛选
     return mlurl;
     if (!!document.getElementById("mytarget").value) {
-        mlurl = mlurl
+        mlurl = mlurl;
     }
     mlurl = https://sub-web.loveyou.eu.org/sub?target=mytarget&url=mlurl&config=myconfig;
     return mlurl;
