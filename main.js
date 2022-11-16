@@ -20,6 +20,7 @@ var mytarget = document.getElementById("myconfig").value;
         mlurl += name;
     } //备注
     mlurl += "&&" + port;//多端口筛选
+    return mlurl;
     if (!!document.getElementById("mytarget").value) {
         mlurl = https://sub-web.loveyou.eu.org/sub?target=mytarget&url=mlurl&config=myconfig;
     }
